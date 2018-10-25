@@ -1,0 +1,26 @@
+{
+  "name": "splatoon-match-reminder",
+  "version": "1.0.0",
+  "description": "reminds about when clam blitz through Twilio SMS",
+  "main": "index.js",
+  "author": "Anthony J Bennett <anthonybennett@nevada.unr.edu>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "moment": "^2.22.2",
+    "moment-timezone": "^0.5.21",
+    "node-cron": "^2.0.3",
+    "twilio": "^3.23.1"
+  },
+  "devDependencies": {
+    "ngrok": "^3.1.0",
+    "nodemon": "^1.18.4"
+  },
+  "scripts": {
+    "dev": "nodemon server.js",
+    "test": "ngrok http 3000"
+  }
+}
