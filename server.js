@@ -52,20 +52,22 @@ const createMessageForUpcomingSchedule = (schedule) => {
     return messages.join('\n');
 }
 
+// TODO: Diff epoch time to find out if the match is happening right now
 const getNextMatch = (schedule) => {
     return `The next match starts at ${convertEpochToReadable(schedule[0].startTime)}!`
 };
 
 // TODO: Create DB (probably NoSQL) to add subscribers to a list
 // then pull them down whenever cron runs and send notifications them to subscribers only
-cron.schedule('* 3 * * *', async () => {
+cron.schedule('2 * * * *', async () => {
     console.log('checking if clam blitz is now...');
 
     const rankedSchedule = await fetchRankedSchedule();
 
-    const { endTime, rule: { key }} = filterForClamBlitz(rankedSchedule)[0]; 
+    const { startTime, endTime, rule: { key }} = filterForClamBlitz(rankedSchedule)[0]; 
+    const diffTime = moment().tz('America/Los_Angeles').diff(moment.unix(startTime).tz('America/Los_Angeles'));
 
-    if(key === 'clam_blitz') {
+    if(key === 'clam_blitz' && diffTime < 600) {
         sendMessage(`Clam Blitz is starting right now and runs until ${convertEpochToReadable(endTime)} PST!`, process.env.TO_NUMBER);
     } else {
         console.log(`it's not`);

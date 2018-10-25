@@ -1,0 +1,6 @@
+{
+    "name": "smr",
+    "alias": "splat.antbnt.me",
+    "dotenv": true,
+    "type": "docker"
+}
